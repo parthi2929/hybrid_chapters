@@ -1,0 +1,26 @@
+\documentclass[tikz = true, float=false, crop=false, 11pt]{standalone}
+
+\usepackage{../myrawtex}
+
+\setcounter{secnumdepth}{5}
+    
+    \begin{document}
+    \label{ch:chapter_1}
+    
+    This is introduction chapter     
+
+    \section{Initial Setup} 
+      \begin{equation}\label{eq:1}
+      Pr(\theta-1 \leq x \leq \theta+1) = 1  
+      \end{equation}
+      
+    \section{CI construction using Pivotal Quantity}
+      In equation \ref{eq:1}, by adding $-\theta$ to the inequalities, we get the solution
+    ...
+    	\subsection{testing subsection numbering}
+    	OK subsection is numbered   	
+    	
+    	\subsubsection{testing subsubsection numbering}
+    	NOK \verb|\subsubsection| is not numbered
+    	
+    \end{document} 

@@ -1,0 +1,48 @@
+\documentclass[float=false, crop=false,11pt,oneside]{book}
+\usepackage{standalone}
+\usepackage{import}
+\usepackage{xr-hyper} % Needed for external references
+
+
+\usepackage{myipy2tex}
+\usepackage{myrawtex}
+    
+\title{Hybrid Book Chapter Template}
+\author{Parthiban Rajendran}
+
+    
+\begin{document}
+    
+    \maketitle 
+
+    \tableofcontents
+
+    \chapter{Introduction}
+    \section{What is it about?}
+    This template is to illustrate how to combine a manually written tex file and that 
+    generated from a ipython notebook successfully together without conflicts. \\\\
+
+    \textbf{Known Issues}:  \\
+
+    In raw tex files, \\
+
+    \begin{enumerate}
+        \item If chapters might contain cross references as in this template example, always run main tex once before running any individual chapters
+        \item includegraphics shall not have any width as, its restricted by default in jupyter's preamble by a hardcoded value of 80\%. If you still include, main build will fail.
+        \item The float and crop options are to be specified in documentclass of main.tex just like they are in sub-files (along with more options like onesided for book type) else main build will fail. 
+        \item As per standalone package rule, the sub-files should refer to main template. So do not create preamble, instead whatever you need, insert in myrawtex.sty, the common style file for raw tex.
+    \end{enumerate}   
+    
+    In auto generated tex files from ipython notebook, \\
+    
+    \begin{enumerate}
+        \item Remove the preamble, instead make it refer the style document created in template myipy2tex.sty 
+    \end {enumerate}
+   
+    \chapter{Raw Tex Sample}
+    \import{chapters/}{raw_sample} 
+    
+    \chapter{Ipython Sample}
+	\import{chapters/}{ipy_sample}    
+
+\end{document} 
