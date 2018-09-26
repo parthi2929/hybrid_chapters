@@ -32,7 +32,7 @@
 %===============================================================================
 
 ((* block input scoped *))
-   ((( custom_add_prompt(cell.source | wrap_text(88) | highlight_code(strip_verbatim=True), cell, 'In ', 'incolor') )))
+   ((( custom_add_prompt(cell.source | wrap_text(88) | highlight_code(strip_verbatim=True), cell, 'In', 'incolor') )))
 ((* endblock input *))
 
 %===============================================================================
@@ -57,7 +57,7 @@
     ((*- set execution_count = " " -*))
     ((*- endif -*))
     ((*- set indention =  " " * (execution_count | length + 7) -*))
-\begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+\begin{((( prompt ~ 'Verbatim')))}[commandchars=\\\{\},fontsize=\scriptsize]
 ((( text | add_prompts(first='{\color{' ~ prompt_color ~ '}' ~ prompt ~ '[{\\color{' ~ prompt_color ~ '}' ~ execution_count ~ '}]:} ', cont=indention) )))
-\end{Verbatim}
+\end{((( prompt ~ 'Verbatim')))}
 ((*- endmacro *))

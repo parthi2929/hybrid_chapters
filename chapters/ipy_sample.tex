@@ -45,9 +45,9 @@ This is just a sample notebook
 
 \subsection{Sample Sub Section}\label{sample-sub-section}
 
-   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{)}
-\end{Verbatim}
+   \begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In[{\color{incolor}1}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{)}
+\end{InVerbatim}
 
     \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
 7
@@ -170,23 +170,49 @@ includegraphis this issue could have been avoided. Got this hint from
 
     \subsection{Using Code}\label{using-code}
 
-This so far seem to have no problems
+Code wrapping has issue both in input and output..
 
-   \begin{Verbatim}[commandchars=\\\{\},fontsize=\scriptsize]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+   \begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In[{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} testing wrapping}
+        \PY{c+c1}{\PYZsh{}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt vel arcu}
+        \PY{n}{at} \PY{n}{rhoncus}\PY{o}{.} \PY{n}{Duis} \PY{n}{efficitur}\PY{p}{,}
+        \PY{c+c1}{\PYZsh{}ligula vitae tincidunt laoreet, felis eros ultricies arcu, ac ullamcorper mi felis non}
+        \PY{n}{velit}\PY{o}{.} \PY{n}{In} \PY{n}{eu} \PY{n}{lorem} \PY{n}{vel} \PY{n}{lacus}
+        
+        
+        \PY{n}{test\PYZus{}str} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt vel arcu}
+        \PY{l+s+s2}{at rhoncus. Duis efficitur,}
+        \PY{l+s+s2}{ligula vitae tincidunt laoreet, felis eros ultricies arcu, ac ullamcorper mi felis non}
+        \PY{l+s+s2}{velit. In eu lorem vel lacus}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
         
         \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
         \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}
         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}str}\PY{p}{)}
+\end{InVerbatim}
 
     \begin{center}
     \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ipy_sample_files/ipy_sample_7_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt vel
+arcu at rhoncus. Duis efficitur,
+ligula vitae tincidunt laoreet, felis eros ultricies arcu, ac ullamcorper mi felis non
+velit. In eu lorem vel lacus
+
+
+    \end{Verbatim}
+
     \subsection{Cross Reference}\label{cross-reference}
 
 Sometimes you would want to refer an equation or something in another
