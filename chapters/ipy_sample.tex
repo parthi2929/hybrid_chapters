@@ -44,11 +44,9 @@
 This is just a sample notebook
 
 \subsection{Sample Sub Section}\label{sample-sub-section}
-
-   \begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+\begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
 {\color{incolor}In[{\color{incolor}1}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{3}\PY{o}{+}\PY{l+m+mi}{4}\PY{p}{)}
 \end{InVerbatim}
-
     \begin{Verbatim}[commandchars=\\\{\},fontsize=\footnotesize]
 7
 
@@ -171,8 +169,7 @@ includegraphis this issue could have been avoided. Got this hint from
     \subsection{Using Code}\label{using-code}
 
 Code wrapping has issue both in input and output..
-
-   \begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+\begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
 {\color{incolor}In[{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
         
@@ -197,9 +194,8 @@ Code wrapping has issue both in input and output..
         
         \PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}str}\PY{p}{)}
 \end{InVerbatim}
-
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{ipy_sample_files/ipy_sample_7_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight},min size={0.5\linewidth}{!}}{ipy_sample_files/ipy_sample_7_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -230,6 +226,96 @@ or latex break because these are raw cells, so a line break also should
 be literally given as above (would be clear when you view this document
 in notebook)
 
+    \subsection{Tikz from ipython}\label{tikz-from-ipython}
+
+It is possible to compile tikz also in ipython thanks to
+\href{https://github.com/mkrphys/ipython-tikzmagic}{tikzmagic} however
+the image that appears in normal size in notebook gets too shrinked in
+latex, apparantly because, image though good enough in resolution is,
+small in size (few cms). Ref
+\href{https://tex.stackexchange.com/questions/452720/weird-image-scaling-in-tex}{1},
+\href{https://github.com/mkrphys/ipython-tikzmagic/issues/27}{2}.
+Current workaround is to maintain a minimum size for the image. This is
+done via nbconvert jinja template using adjustbox package.
+
+If you have multiple code cells as below, insert a markdown cell
+intermediately, add a backward slash and a blank line below that. If not
+there would be an error while compiling resultant tex. Do not worry,
+these markdown cell contents will not be visible in tex and thus final
+pdf.
+\begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In[{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} tikzmagic
+\end{InVerbatim}
+    
+\begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In[{\color{incolor}2}]:} \PY{n}{preamble} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+s1}{    }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pgfmathdeclarefunction}\PY{l+s+si}{\PYZob{}gauss\PYZcb{}}\PY{l+s+si}{\PYZob{}3\PYZcb{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{\PYZpc{}}
+        \PY{l+s+s1}{      }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{pgfmathparse}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{1/(\PYZsh{}3*sqrt(2*pi))*exp(\PYZhy{}((\PYZsh{}1\PYZhy{}\PYZsh{}2)\PYZca{}2)/(2*\PYZsh{}3\PYZca{}2))\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}
+        \PY{l+s+s1}{    \PYZcb{}}
+        \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{InVerbatim}
+    
+\begin{InVerbatim}[commandchars=\\\{\},fontsize=\scriptsize]
+{\color{incolor}In[{\color{incolor}3}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{tikz} \PYZhy{}p pgfplots \PYZhy{}x \PYZdl{}preamble
+        \PYZpc{} had to be this size to have a normal size in latex
+            \PYZbs{}begin\PYZob{}axis\PYZcb{}[
+                no markers,
+                domain=0:6,
+                samples=100,
+                ymin=0,
+                axis lines*=left,
+                xlabel=\PYZdl{}x\PYZdl{},
+                ylabel=\PYZdl{}f(x)\PYZdl{},
+                height=5cm,
+                width=12cm,
+                xtick=\PYZbs{}empty,
+                ytick=\PYZbs{}empty,
+                enlargelimits=false,
+                clip=false,
+                axis on top,
+                grid = major,
+                axis lines = middle
+              ]
+        
+            \PYZbs{}def\PYZbs{}mean\PYZob{}3\PYZcb{}
+            \PYZbs{}def\PYZbs{}sd\PYZob{}1\PYZcb{}
+            \PYZbs{}def\PYZbs{}cilow\PYZob{}\PYZbs{}mean \PYZhy{} 1.96*\PYZbs{}sd\PYZcb{}
+            \PYZbs{}def\PYZbs{}cihigh\PYZob{}\PYZbs{}mean + 1.96*\PYZbs{}sd\PYZcb{}
+            \PYZbs{}addplot [draw=none, fill=yellow!25, domain=\PYZbs{}cilow:\PYZbs{}cihigh] \PYZob{}gauss(x, \PYZbs{}mean, \PYZbs{}sd)\PYZcb{}
+        \PYZbs{}closedcycle;
+            \PYZbs{}addplot [very thick,cyan!50!black] \PYZob{}gauss(x, 3, 1)\PYZcb{};
+        
+            \PYZbs{}pgfmathsetmacro\PYZbs{}valueA\PYZob{}gauss(1,\PYZbs{}mean,\PYZbs{}sd)\PYZcb{}
+            \PYZbs{}draw [gray] (axis cs:\PYZbs{}cilow,0) \PYZhy{}\PYZhy{} (axis cs:\PYZbs{}cilow,\PYZbs{}valueA) (axis cs:\PYZbs{}cihigh,0) \PYZhy{}\PYZhy{}
+        (axis cs:\PYZbs{}cihigh,\PYZbs{}valueA);
+            \PYZbs{}draw [yshift=0.3cm, latex\PYZhy{}latex](axis cs:\PYZbs{}cilow, 0) \PYZhy{}\PYZhy{} node [above] \PYZob{}Area = \PYZdl{}0.95\PYZdl{}\PYZcb{}
+        (axis cs:\PYZbs{}cihigh, 0);
+        
+            \PYZbs{}node[below] at (axis cs:\PYZbs{}cilow, 0)  \PYZob{}\PYZdl{}\PYZbs{}mu \PYZhy{} 1.96\PYZbs{}sigma\PYZdl{}\PYZcb{};
+            \PYZbs{}node[below] at (axis cs:\PYZbs{}mean, 0)  \PYZob{}\PYZdl{}\PYZbs{}mu\PYZdl{}\PYZcb{};
+            \PYZbs{}node[below] at (axis cs:\PYZbs{}cihigh, 0)  \PYZob{}\PYZdl{}\PYZbs{}mu + 1.96\PYZbs{}sigma\PYZdl{}\PYZcb{};
+        
+        \PYZbs{}end\PYZob{}axis\PYZcb{}
+\end{InVerbatim}
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight},min size={0.5\linewidth}{!}}{ipy_sample_files/ipy_sample_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Hide Code cells}\label{hide-code-cells}
+
+Also now added the ability to hide input prompts of the code cells. For
+eg, the code responsible for below matplotlib figure is hidden in latex
+but will appear in notebook. This is done by adding to\_remove tag to
+the code cell, and later removing it via nbconvert's jinja template
+process.
+% remove input part of cells with tag to_remove
+    %((- if cell.metadata.hide_input -))
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight},min size={0.5\linewidth}{!}}{ipy_sample_files/ipy_sample_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
 
     % Add a bibliography block to the postdoc
     

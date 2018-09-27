@@ -25,6 +25,17 @@
 ((* block commands *))
 ((* endblock commands *))
 
+% Draw a figure using the graphicx package. Min size due to tikzmagic outputs being too shrinked.
+((* macro draw_figure(filename) -*))
+((* set filename = filename | posix_path *))
+((*- block figure scoped -*))
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight},min size={0.5\linewidth}{!}}{((( filename )))}
+    \end{center}
+    { \hspace*{\fill} \\}
+((*- endblock figure -*))
+((*- endmacro *))
+
 
 % 3. BELOW STUFF ARE JUST FOR CODE CELL CORRECTIONS TO GET LINES WRAPPED PROPERLY..
 %===============================================================================
@@ -32,7 +43,11 @@
 %===============================================================================
 
 ((* block input scoped *))
-   ((( custom_add_prompt(cell.source | wrap_text(88) | highlight_code(strip_verbatim=True), cell, 'In', 'incolor') )))
+    ((*- if 'to_remove' in cell.metadata.get('tags', []) -*))  % remove input part of cells with tag to_remove
+    %((- if cell.metadata.hide_input -))
+    ((*- else -*))
+        ((( custom_add_prompt(cell.source | wrap_text(88) | highlight_code(strip_verbatim=True), cell, 'In', 'incolor') )))    
+    ((*- endif -*))
 ((* endblock input *))
 
 %===============================================================================
